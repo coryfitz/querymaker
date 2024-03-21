@@ -67,7 +67,7 @@ DELETE FROM table_name WHERE condition;
 Option: where
 
 ```python
-def my_func(a, b, table_name):
+def my_func(a, b, table_name, condition):
     with table_name as table:
         if condition:
             del table_name
@@ -77,10 +77,24 @@ def my_func(a, b, table_name):
 ### alter table + drop
 
 ```sql
-ALTER TABLE customers DROP COLUMN contact_name;
+ALTER TABLE table_name DROP COLUMN column_name;
 ```
 should alter table be a function? automatically added?
 
+problem - how do I know that it's drop and not del
+
 ```python
+def my_func(table_name, column_name):
+    with customers as table:
+        with column_name as column:
+            del column_name
+
+```
+Option 2:
+
+```python
+def my_func(table_name, column_name, drop):
+    with customers as table:
+            drop(column_name)
 
 ```
